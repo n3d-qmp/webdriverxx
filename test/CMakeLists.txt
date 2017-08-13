@@ -127,7 +127,6 @@ endif()
 externalproject_add(picojson_project
 	PREFIX picojson
 	GIT_REPOSITORY https://github.com/kazuho/picojson
-	GIT_TAG 806c5740e2c673189fee7e53acc0429af0b24691
 	CONFIGURE_COMMAND ""
 	BUILD_COMMAND ""
 	INSTALL_COMMAND ""
@@ -137,24 +136,16 @@ externalproject_get_property(picojson_project source_dir)
 include_directories("${source_dir}")
 list(APPEND DEPS picojson_project)
 
-# GMock
-if (CMAKE_COMPILER_IS_GNUCXX)
-set(GMOCK_VERSION "1.6.0") # To avoid bug in GCC 4.6
-else()
-set(GMOCK_VERSION "1.7.0")
-endif()
-externalproject_add(gmock_project
-	PREFIX gmock
-	URL "http://googlemock.googlecode.com/files/gmock-${GMOCK_VERSION}.zip"
-	CMAKE_ARGS -Dgtest_force_shared_crt=ON
-	INSTALL_COMMAND ""
-	UPDATE_COMMAND ""
-	)
-externalproject_get_property(gmock_project source_dir binary_dir)
-include_directories("${source_dir}/include" "${source_dir}/gtest/include")
-link_directories("${binary_dir}" "${binary_dir}/gtest")
-list(APPEND LIBS gmock gtest)
-list(APPEND DEPS gmock_project)
+# Google test
+externalproject_add(googletest
+		PREFIX googletest
+		GIT_REPOSITORY https://github.com/google/googletest
+		UPDATE_COMMAND ""
+)
+externalproject_get_property(googletest source_dir)
+include_directories("${source_dir}")
+list(APPEND DEPS googletest)
+list(APPEND LIBS gtest gmock)
 
 # pthread
 if (UNIX)
