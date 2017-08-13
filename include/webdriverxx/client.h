@@ -5,7 +5,7 @@
 #include "capabilities.h"
 #include "detail/resource.h"
 #include "detail/http_connection.h"
-#include <picojson.h>
+#include "picojson.h"
 #include <string>
 #include <vector>
 

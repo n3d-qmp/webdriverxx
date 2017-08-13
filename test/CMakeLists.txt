@@ -18,7 +18,8 @@ set(HEADER_FILES
 	../include/webdriverxx/wait_match.h 
 	../include/webdriverxx/webdriver.h 
 	../include/webdriverxx/window.h 
-	../include/webdriverxx/browsers/chrome.h 
+	../include/webdriverxx/picojson.h
+	../include/webdriverxx/browsers/chrome.h
 	../include/webdriverxx/browsers/firefox.h 
 	../include/webdriverxx/browsers/ie.h 
 	../include/webdriverxx/detail/error_handling.h 
@@ -123,19 +124,6 @@ else()
 	list(APPEND LIBS ${CURL_LIBRARIES})
 endif()
 
-# picojson
-externalproject_add(picojson_project
-	PREFIX picojson
-	GIT_REPOSITORY https://github.com/kazuho/picojson
-	CONFIGURE_COMMAND ""
-	BUILD_COMMAND ""
-	INSTALL_COMMAND ""
-	UPDATE_COMMAND ""
-	)
-externalproject_get_property(picojson_project source_dir)
-include_directories("${source_dir}")
-list(APPEND DEPS picojson_project)
-
 # Google test
 externalproject_add(googletest
 		PREFIX googletest
@@ -154,7 +142,22 @@ if (UNIX)
 	list(APPEND LIBS ${CMAKE_THREAD_LIBS_INIT})
 endif()
 
-add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES})
+#add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES})
+add_library(${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES})
 add_dependencies(${PROJECT_NAME} ${DEPS})
 target_link_libraries(${PROJECT_NAME} ${LIBS})
 add_test(${PROJECT_NAME} ${PROJECT_NAME})
+
+if (APPLE)
+	set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${PROJECT_NAME} SUFFIX ".dylib")
+endif()
+
+if (UNIX AND NOT APPLE)
+	set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${PROJECT_NAME} SUFFIX ".so")
+endif()
+
+if (WIN32)
+	set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${PROJECT_NAME} SUFFIX ".dll")
+endif()
+
+install(TARGETS ${PROJECT_NAME} DESTINATION /usr/local/lib)

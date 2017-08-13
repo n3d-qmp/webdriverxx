@@ -11,7 +11,7 @@
 #include "detail/keyboard.h"
 #include "detail/shared.h"
 #include "detail/factories_impl.h"
-#include <picojson.h>
+#include "picojson.h"
 #include <string>
 
 namespace webdriverxx {

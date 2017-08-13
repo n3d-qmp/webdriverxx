@@ -3,7 +3,7 @@
 
 #include "../conversions.h"
 #include "../capabilities.h"
-#include <picojson.h>
+#include "../picojson.h"
 #include <string>
 
 namespace webdriverxx {

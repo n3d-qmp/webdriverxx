@@ -6,7 +6,7 @@
 #include "shared.h"
 #include "../conversions.h"
 #include "../response_status_code.h"
-#include <picojson.h>
+#include "../picojson.h"
 
 namespace webdriverxx {
 namespace detail {

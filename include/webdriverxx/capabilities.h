@@ -2,7 +2,7 @@
 #define WEBDRIVERXX_CAPABILITIES_H
 
 #include "conversions.h"
-#include <picojson.h>
+#include "picojson.h"
 #include <string>
 
 namespace webdriverxx {

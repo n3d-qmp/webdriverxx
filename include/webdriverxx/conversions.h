@@ -4,7 +4,7 @@
 #include "types.h"
 #include "detail/error_handling.h"
 #include "detail/meta_tools.h"
-#include <picojson.h>
+#include "picojson.h"
 #include <algorithm>
 
 namespace webdriverxx {
