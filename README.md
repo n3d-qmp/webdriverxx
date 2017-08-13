@@ -2,20 +2,36 @@
 # Webdriver++
 
 A C++ client library for [Selenium Webdriver](http://www.seleniumhq.org/).
+You can use this library in any C++ project.
 
-Version 0.7.1 [![Build Status](https://travis-ci.org/sekogan/webdriverxx.svg?branch=master)](https://travis-ci.org/sekogan/webdriverxx)
+
+## Install
+
+```bash
+mkdir build
+cd build && cmake ..
+make && sudo make install
+```
 
 ## A quick example
+
+##### Dependencies
+You need to download and run selenium-server before run this example.
+http://www.seleniumhq.org/download/
+
 ```cpp
-#include <webdriverxx.h>
+#include <webdriverxx/webdriverxx.h>
 using namespace webdriverxx;
 
-WebDriver firefox = Start(Firefox());
-firefox
-    .Navigate("http://google.com")
-    .FindElement(ByCss("input[name=q]"))
-    .SendKeys("Hello, world!")
-    .Submit();
+int main() {
+    WebDriver firefox = Start(Firefox());
+    firefox
+        .Navigate("http://google.com")
+        .FindElement(ByCss("input[name=q]"))
+        .SendKeys("Hello, world!")
+        .Submit();
+    return 0;    
+}
 ```
 
 ## Features
@@ -179,50 +195,6 @@ driver.Navigate("http://initial_url.host.net");
 auto url = [&]{ return driver.GetUrl(); };
 using namespace ::testing;
 auto final_url = WaitForMatch(url, HasSubstr("some_magic"));
-```
-
-## How to build and run tests
-
-### All platforms
-
-Prerequisites for building and running tests:
-- [CMake](http://www.cmake.org/)
-- [PhantomJS](http://phantomjs.org/)
-- [node.js](http://nodejs.org/)
-- [http-server](https://github.com/nodeapps/http-server)
-
-### Linux & Mac
-
-Prerequisites:
-- GCC or clang
-
-```bash
-git clone http://github.com/sekogan/webdriverxx
-cd webdriverxx
-mkdir build
-cd build
-cmake ..
-cmake --build .
-phantomjs --webdriver=7777 &
-http-server ./test/pages --silent &
-ctest -V
-```
-
-### Windows
-
-Prerequisites:
-- Visual Studio 2010 or newer
-
-```bash
-git clone http://github.com/sekogan/webdriverxx
-cd webdriverxx
-mkdir build
-cd build
-cmake ..
-cmake --build .
-start phantomjs --webdriver=7777
-start http-server ./test/pages
-ctest -V
 ```
 
 ### Testing with real browsers
