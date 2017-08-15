@@ -22,7 +22,8 @@ set(HEADER_FILES
 	../include/webdriverxx/browsers/chrome.h
 	../include/webdriverxx/browsers/firefox.h 
 	../include/webdriverxx/browsers/ie.h 
-	../include/webdriverxx/detail/error_handling.h 
+	../include/webdriverxx/browsers/phantom.h
+	../include/webdriverxx/detail/error_handling.h
 	../include/webdriverxx/detail/factories.h 
 	../include/webdriverxx/detail/factories_impl.h 
 	../include/webdriverxx/detail/finder.h 
@@ -106,7 +107,7 @@ include(ExternalProject)
 # CURL
 if (WIN32)
 	externalproject_add(curl_project
-		URL http://curl.haxx.se/download/curl-7.29.0.tar.gz
+		URL http://curl.haxx.se/download/curl-7.55.0.tar.gz
 		PREFIX curl
 		CMAKE_ARGS -DCURL_STATICLIB=ON -DBUILD_SHARED_LIBS=OFF -DBUILD_CURL_EXE=OFF -DBUILD_CURL_TESTS=OFF -DCMAKE_USE_OPENSSL=OFF -DCURL_ZLIB=OFF -DHTTP_ONLY=ON
 		INSTALL_COMMAND ""
@@ -142,11 +143,14 @@ if (UNIX)
 	list(APPEND LIBS ${CMAKE_THREAD_LIBS_INIT})
 endif()
 
-#add_executable(${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES})
 add_library(${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES})
 add_dependencies(${PROJECT_NAME} ${DEPS})
 target_link_libraries(${PROJECT_NAME} ${LIBS})
-add_test(${PROJECT_NAME} ${PROJECT_NAME})
+
+add_executable(${PROJECT_NAME}_test ${SOURCE_FILES} ${HEADER_FILES})
+add_dependencies(${PROJECT_NAME}_test ${DEPS})
+target_link_libraries(${PROJECT_NAME}_test ${LIBS})
+add_test(${PROJECT_NAME}_test ${PROJECT_NAME})
 
 if (APPLE)
 	set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME ${PROJECT_NAME} SUFFIX ".dylib")

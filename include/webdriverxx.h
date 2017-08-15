@@ -5,6 +5,7 @@
 #include "webdriverxx/browsers/chrome.h"
 #include "webdriverxx/browsers/firefox.h"
 #include "webdriverxx/browsers/ie.h"
+#include "webdriverxx/browsers/phantom.h"
 #include "webdriverxx/wait.h"
 #include "webdriverxx/wait_match.h"
 
