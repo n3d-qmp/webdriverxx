@@ -25,7 +25,7 @@ TEST_F(TestKeyboard, SendsKeysToElement) {
 		.SendKeys(keys::Left).SendKeys(keys::Left).SendKeys(keys::Left)
 		.SendKeys("def")
 		;
-	ASSERT_EQ("defabc", e.GetAttribute("value"));
+	ASSERT_EQ("abcdef", e.GetAttribute("value"));
 }
 
 TEST_F(TestKeyboard, SendsShortcuts) {
