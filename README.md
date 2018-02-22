@@ -10,7 +10,7 @@ You can use this library in any C++ project.
 ```bash
 mkdir build
 cd build && cmake ..
-make && sudo make install
+sudo make && sudo make install
 ```
 
 ## A quick example
