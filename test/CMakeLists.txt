@@ -107,7 +107,7 @@ include(ExternalProject)
 # CURL
 if (WIN32)
 	externalproject_add(curl_project
-		URL http://curl.haxx.se/download/curl-7.55.0.tar.gz
+		URL http://curl.haxx.se/download/curl-7.87.0.tar.gz
 		PREFIX curl
 		CMAKE_ARGS -DCURL_STATICLIB=ON -DBUILD_SHARED_LIBS=OFF -DBUILD_CURL_EXE=OFF -DBUILD_CURL_TESTS=OFF -DCMAKE_USE_OPENSSL=OFF -DCURL_ZLIB=OFF -DHTTP_ONLY=ON
 		INSTALL_COMMAND ""
@@ -129,6 +129,7 @@ endif()
 externalproject_add(googletest
 		PREFIX googletest
 		GIT_REPOSITORY https://github.com/google/googletest
+		GIT_TAG main
 		UPDATE_COMMAND ""
 )
 externalproject_get_property(googletest source_dir)
