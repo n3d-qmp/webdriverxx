@@ -146,6 +146,7 @@ endif()
 
 add_library(${PROJECT_NAME} ${SOURCE_FILES} ${HEADER_FILES})
 add_dependencies(${PROJECT_NAME} ${DEPS})
+target_include_directories(${PROJECT_NAME} PUBLIC "${source_dir}/include")
 target_link_libraries(${PROJECT_NAME} ${LIBS})
 
 add_executable(${PROJECT_NAME}_test ${SOURCE_FILES} ${HEADER_FILES})
